@@ -13,18 +13,17 @@ class CustomTableViewCell: UITableViewCell {
     
     private let avatarLabel : UILabel = {
         let label = UILabel()
-        label.backgroundColor = .systemGray
+        label.backgroundColor = .systemGreen
         label.textAlignment = .center
         label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 10
+        label.layer.cornerRadius = 30
         return label
     }()
     
     private let nameLabel : UILabel = {
         let label = UILabel()
-        label.backgroundColor = .systemGreen
-        label.textAlignment = .center
+        label.backgroundColor = .systemBackground
         label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -42,6 +41,11 @@ class CustomTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(userName: String){
+        nameLabel.text = userName
+        avatarLabel.text = userName.getFirstSembols()
     }
     
     private func addConstraits(){

@@ -22,6 +22,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "İOS"
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
         tableView.delegate = self
@@ -42,7 +43,17 @@ class ViewController: UIViewController {
     }
     
     @objc private func didTap(){
-        print("Tap")
+        AlertManager.showTextFieldsAlert(vc: self,
+                                         title: "Add user") {[weak self] name in
+            guard let self else { return }
+            self.users.append(name)
+            addUser(users)
+            tableView.reloadData()
+        }
+    }
+    
+    func addUser(_ user: [String]){
+        self.users = user
     }
 }
 //MARK: -TableView
@@ -56,6 +67,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
             return UITableViewCell()
         }
+        let user = users[indexPath.row]
+        cell.configure(userName: user)
         return cell
     }
     
